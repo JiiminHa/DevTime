@@ -4,9 +4,7 @@ interface TextfieldProps {
   value?: string;
   onChange?: (value: string) => void;
   className?: string;
-  error?: string;
 }
-
 export const TextfieldInput = ({
   placeholder = '',
   value,
