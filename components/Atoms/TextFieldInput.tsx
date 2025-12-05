@@ -24,13 +24,11 @@ export const TextfieldInput = ({
         };
 
   return (
-    <div className={`flex flex-col ${className}`}>
-      <input
-        type='text'
-        placeholder={placeholder}
-        {...inputProps}
-        className={`text-body rounded-sm bg-gray-50 px-4 py-3`}
-      />
-    </div>
+    <input
+      type='text'
+      placeholder={placeholder}
+      {...inputProps}
+      className={`text-body rounded-sm bg-gray-50 px-4 py-3 ${className}`}
+    />
   );
 };
