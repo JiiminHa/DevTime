@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @theme {
   /* Primary - 메인 파란색 */
   --color-primary: #4c79ff;
@@ -38,7 +38,8 @@
   --color-gray-800: #1f2937;
 
   /* State Colors */
-  --color-disabled: #969da8;
+  --color-disabled-dark: #969da8;
+  --color-diabled-light: #e5e7eb;
   --color-focus: #4c79ff;
 
   /* Dimmed Backgrounds */
@@ -50,7 +51,7 @@
   --color-shadow-light: rgba(0, 0, 0, 0.1);
   --color-shadow-dark: rgba(0, 0, 0, 0.2);
 
-  --font-family-primary: "Pretendard", -apple-system, sans-serif;
+  --font-family-primary: 'Pretendard', -apple-system, sans-serif;
   --font-heading: 1.5rem;
   --font-title: 1.25rem;
   --font-subtitle: 1.125rem;
