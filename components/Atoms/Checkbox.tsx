@@ -15,7 +15,7 @@ export const Checkbox = ({
   className = '',
   error = false,
 }: CheckboxProps) => {
-  const baseStyles = 'h-4 w-4 rounded-sm border-1px transition-colors';
+  const baseStyles = 'h-4 w-4 rounded-sm border transition-colors';
   const variantStyles = {
     primary: 'bg-primary/10 border-primary checked:primary',
     secondary: 'border-white checked: white',
