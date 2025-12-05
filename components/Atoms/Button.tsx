@@ -17,7 +17,8 @@ export const Button = ({
   children,
   className = '',
 }: ButtonProps) => {
-  const baseStyles = 'rounded-sm font-semibold transition-colors px-3 py-4';
+  const baseStyles =
+    'rounded-sm font-semibold transition-colors px-3 py-4 flex items-center justify-center';
 
   const variantStyles = {
     primary:
