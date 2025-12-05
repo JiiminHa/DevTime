@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@theme {
+  /* Primary - 메인 파란색 */
+  --color-primary: #4c79ff;
+  --color-primary-gradient: linear-gradient(to right, #4c79ff, #023e99);
+
+  /* Primary Light - 연한 파란색 (보조용) */
+  --color-primary-light: #78b0ff;
+
+  /* Secondary - 의미별 색상 */
+  --color-indigo: #023e99;
+  --color-indigo-light: #a3c3ff;
+
+  --color-informative: #2563eb;
+  --color-informative-light: #53b2ff;
+
+  --color-negative: #dc2626;
+  --color-negative-light: #ff6363;
+
+  --color-notice: #fbbf24;
+  --color-notice-light: #ffdb7f;
+
+  --color-positive: #22c55e;
+  --color-positive-light: #62ec95;
+
+  --color-fuchsia: #fd28ec;
+  --color-fuchsia-light: #ff87f5;
+
+  /* Gray Scale */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f0f2f5;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #ccd0d6;
+  --color-gray-400: #9b9da8;
+  --color-gray-500: #717887;
+  --color-gray-600: #485563;
+  --color-gray-700: #394252;
+  --color-gray-800: #1f2937;
+
+  /* State Colors */
+  --color-disabled: #969da8;
+  --color-focus: #4c79ff;
+
+  /* Dimmed Backgrounds */
+  --color-dim-light: rgba(0, 0, 0, 0.5); /* Dim1 B50% */
+  --color-dim-dark: rgba(0, 0, 0, 0.7); /* Dim2 B70% */
+
+  /* Borders & Shadows */
+  --color-border: #ccd0d6;
+  --color-shadow-light: rgba(0, 0, 0, 0.1);
+  --color-shadow-dark: rgba(0, 0, 0, 0.2);
+
+  --font-family-primary: "Pretendard", -apple-system, sans-serif;
+  --font-heading: 1.5rem;
+  --font-title: 1.25rem;
+  --font-subtitle: 1.125rem;
+  --font-body: 1rem;
+  --font-body-small: 0.875rem;
+  --font-caption: 0.75rem;
+  --font-label: 0.625rem;
+}
