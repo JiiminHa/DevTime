@@ -7,7 +7,7 @@ export default function OnboardingLayout({children}: {children: ReactNode}) {
       {/* 왼쪽 파란 영역 */}
       <section className='bg-primary flex flex-1 items-center justify-center'>
         <div className='flex flex-col items-center justify-center gap-9'>
-          <Logo className='w-[264px] h-[200px]' />
+          <Logo className='w-{264px} h-{200px}' />
           <div className='text-center'>
             <p className='font-title font-semibold text-white'>
               개발자를 위한 타이머
