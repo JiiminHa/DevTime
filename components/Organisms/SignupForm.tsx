@@ -47,7 +47,8 @@ export function SignupForm() {
         return '';
       case 'password':
         if (!value) return '비밀번호를 입력해 주세요';
-        if ((value as string).length < 8)
+        const passwordStr = value as string;
+        if (passwordStr.length < 8 || !/[A-Za-z]/.test(passwordStr) || !/[0-9]/.test(passwordStr))
           return '비밀번호는 8자 이상, 영문과 숫자 조합이어야 합니다';
         return '';
       case 'passwordConfirm':
