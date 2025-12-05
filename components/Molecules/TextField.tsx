@@ -15,7 +15,7 @@ export function Textfield({label, error, ...props}: TextfieldProps) {
       {label && <label className='font-label text-sm'>{label}</label>}
       <TextfieldInput
         {...props}
-        error={error ? 'outline-negative outline' : ''}
+        className={error ? 'outline-negative outline' : ''}
       />
       {error && <p className='font-caption text-negative'>{error}</p>}
     </div>

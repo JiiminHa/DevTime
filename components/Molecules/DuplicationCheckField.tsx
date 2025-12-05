@@ -1,7 +1,10 @@
 import {Button} from '../Atoms/Button';
 import {TextfieldInput} from '../Atoms/TextFieldInput';
 
-interface DuplicationCheckFieldProps {
+interface DuplicationCheckFieldProps extends Omit<
+  React.ComponentProps<typeof TextfieldInput>,
+  'error'
+> {
   label?: string;
   value: string;
   onChange: (value: string) => void;
@@ -23,8 +26,7 @@ export function DuplicationCheckField({
         <div className='flex-1'>
           <TextfieldInput
             {...props}
-            className='w-full'
-            error={error ? 'outline-negative outline' : ''}
+            className={`w-full ${error ? 'outline-negative outline' : ''}`}
           />
           {error && <p className='text-caption text-negative'>{error}</p>}
         </div>
