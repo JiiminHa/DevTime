@@ -1,8 +1,10 @@
 import React from 'react';
 import {TextfieldInput} from '../Atoms/TextFieldInput';
 
-interface TextfieldProps
-  extends Omit<React.ComponentProps<typeof TextfieldInput>, 'error'> {
+interface TextfieldProps extends Omit<
+  React.ComponentProps<typeof TextfieldInput>,
+  'error'
+> {
   label?: string;
   error?: string; // 에러 메시지 (TextFieldInput의 error는 className)
 }
