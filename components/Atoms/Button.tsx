@@ -1,5 +1,3 @@
-'use client';
-
 interface ButtonProps {
   type?: 'button' | 'submit';
   variant?: 'primary' | 'secondary' | 'tertiary';

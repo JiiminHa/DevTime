@@ -1,5 +1,3 @@
-'use client';
-
 interface CheckboxProps {
   variant?: 'primary' | 'secondary';
   checked?: boolean;
