@@ -1,6 +1,7 @@
 'use client';
 
 interface ButtonProps {
+  type?: 'button' | 'submit';
   variant?: 'primary' | 'secondary' | 'tertiary';
   size?: 'large' | 'small';
   disabled?: boolean;
@@ -10,6 +11,7 @@ interface ButtonProps {
 }
 
 export const Button = ({
+  type = 'button',
   variant = 'primary',
   size = 'large',
   disabled = false,
@@ -36,6 +38,7 @@ export const Button = ({
 
   return (
     <button
+      type={type}
       disabled={disabled}
       onClick={onClick}
       className={` ${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className} `}>
