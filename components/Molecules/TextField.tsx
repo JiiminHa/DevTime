@@ -1,23 +1,49 @@
 import React from 'react';
-import {TextfieldInput} from '../Atoms/TextFieldInput';
 
-interface TextfieldProps extends Omit<
-  React.ComponentProps<typeof TextfieldInput>,
-  'error'
-> {
+interface TextfieldProps {
+  placeholder?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  className?: string;
+  message?: {text: string; type: 'error' | 'success'};
   label?: string;
-  error?: string; // 에러 메시지 (TextFieldInput의 error는 className)
 }
 
-export function Textfield({label, error, ...props}: TextfieldProps) {
+export function Textfield({
+  label,
+  message,
+  value,
+  onChange,
+  placeholder,
+  className,
+}: TextfieldProps) {
+  const inputProps =
+    value !== undefined
+      ? {
+          value,
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange?.(e.target.value),
+        }
+      : {
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange?.(e.target.value),
+        };
+
   return (
     <div className='flex flex-col gap-2'>
       {label && <label className='font-label text-sm'>{label}</label>}
-      <TextfieldInput
-        {...props}
-        className={error ? 'outline-negative outline' : ''}
+      <input
+        type='text'
+        placeholder={placeholder}
+        {...inputProps}
+        className={`text-body rounded-sm bg-gray-50 px-4 py-3 ${message?.type === 'error' ? 'outline-negative outline' : ''} ${className}`}
       />
-      {error && <p className='font-caption text-negative'>{error}</p>}
+      {message && (
+        <p
+          className={`font-caption ${message.type === 'error' ? 'text-negative' : 'text-positive'}`}>
+          {message.text}
+        </p>
+      )}
     </div>
   );
 }
