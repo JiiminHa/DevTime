@@ -1,4 +1,4 @@
-export { signup } from './api/signupApi';
+export {signup} from './api/signupApi';
 export {
   validateEmail,
   validateNickname,

@@ -1,1 +1,1 @@
-export { checkEmail, checkNickname } from './api/checkDuplicateApi';
+export {checkEmail, checkNickname} from './api/checkDuplicateApi';

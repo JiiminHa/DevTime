@@ -2,17 +2,18 @@
 
 import {useState} from 'react';
 import Link from 'next/link';
-import {Button} from '@/components/Atoms/Button';
-import {Checkbox} from '@/components/Atoms/Checkbox';
-import {Textfield} from '@/components/Molecules/TextField';
-import {TermsPanel} from '@/components/Molecules/TermsPanel';
-import {checkEmail, checkNickname, signup} from '@/lib/api/signup';
+import {Button} from '@/shared/ui/button';
+import {Checkbox} from '@/shared/ui/checkbox';
+import {Textfield} from '@/shared/ui/text-field';
+import {TermsPanel} from '@/features/terms';
+import {checkEmail, checkNickname} from '@/features/auth/check-duplicate';
 import {
+  signup,
   validateEmail,
   validateNickname,
   validatePassword,
   validateConfirmPassword,
-} from '@/lib/validation/signup';
+} from '@/features/auth/signup';
 
 export function SignupForm() {
   const [formData, setFormData] = useState({

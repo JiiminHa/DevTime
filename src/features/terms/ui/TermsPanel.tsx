@@ -1,4 +1,4 @@
-import {TERMS_SECTIONS} from '@/constants/terms';
+import { TERMS_SECTIONS } from '../model/constants';
 
 export function TermsPanel() {
   return (
