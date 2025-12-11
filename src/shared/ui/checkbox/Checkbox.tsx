@@ -1,33 +1,33 @@
+import CheckedIcon from '@/shared/assets/checked.svg';
+import UncheckedIcon from '@/shared/assets/unchecked.svg';
+
 interface CheckboxProps {
-  variant?: 'primary' | 'secondary';
   checked?: boolean;
   onChange?: (checked: boolean) => void;
-  className?: string;
   error?: boolean;
 }
 
 export const Checkbox = ({
-  variant = 'primary',
   checked = false,
   onChange,
-  className = '',
   error = false,
 }: CheckboxProps) => {
-  const baseStyles = 'h-4 w-4 rounded-sm border transition-colors';
-  const variantStyles = {
-    primary: 'bg-primary/10 border-primary checked:primary',
-    secondary: 'border-white checked: white',
-  };
-  const errorStyles = error ? 'outline outline-1 outline-negative' : '';
-
   return (
-    <div className={`flex items-center ${className}`}>
+    <label className='cursor-pointer'>
+      {/* 숨겨진 진짜 input (접근성 + 키보드 + form) */}
       <input
         type='checkbox'
         checked={checked}
-        onChange={(e) => onChange && onChange(e.target.checked)}
-        className={`${baseStyles} ${variantStyles[variant]} ${errorStyles}`}
+        onChange={(e) => onChange?.(e.target.checked)}
+        className='sr-only'
       />
-    </div>
+
+      {/* 보이는 SVG */}
+      {checked ? (
+        <CheckedIcon className={error ? 'stroke-negative' : ''} />
+      ) : (
+        <UncheckedIcon className={error ? 'stroke-negative' : ''} />
+      )}
+    </label>
   );
 };
