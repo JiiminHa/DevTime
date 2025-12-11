@@ -32,12 +32,22 @@ export function SignupForm() {
     terms: {text: '', type: 'error' as 'error' | 'success'},
   });
 
+  const [isDuplicateChecked, setIsDuplicateChecked] = useState({
+    email: false,
+    nickname: false,
+  });
+
   // Event Handlers
   const handleFieldChange = (
     name: keyof typeof formData,
     value: string | boolean
   ) => {
     setFormData({...formData, [name]: value});
+
+    // 이메일이나 닉네임이 변경되면 중복확인 상태 초기화
+    if (name === 'email' || name === 'nickname') {
+      setIsDuplicateChecked((prev) => ({...prev, [name]: false}));
+    }
 
     let result: {text: string; type: 'error' | 'success'};
 
@@ -80,6 +90,7 @@ export function SignupForm() {
           : await checkNickname(value);
 
       if (data.success && data.available) {
+        setIsDuplicateChecked((prev) => ({...prev, [fieldName]: true}));
         setMessages((prev) => ({
           ...prev,
           [fieldName]: {text: data.message, type: 'success'},
@@ -161,44 +172,42 @@ export function SignupForm() {
         <fieldset className='space-y-10'>
           <legend className='sr-only'>계정 정보</legend>
 
-          <div className='flex flex-col gap-2'>
-            <label className='font-label'>아이디</label>
-            <div className='flex items-start gap-3'>
-              <Textfield
-                placeholder='이메일을 입력해 주세요.'
-                value={formData.email}
-                onChange={(value) => handleFieldChange('email', value)}
-                message={messages.email}
-                className='flex-1'
-              />
+          <Textfield
+            label='아이디'
+            placeholder='이메일을 입력해 주세요.'
+            value={formData.email}
+            onChange={(value) => handleFieldChange('email', value)}
+            message={messages.email}
+            rightElement={
               <Button
                 variant='secondary'
                 size='small'
+                disabled={!formData.email}
                 onClick={() => handleCheckDuplication('email')}>
                 중복 확인
               </Button>
-            </div>
-          </div>
+            }
+          />
 
-          <div className='flex flex-col gap-2'>
-            <label className='font-label'>닉네임</label>
-            <div className='flex items-start gap-3'>
-              <Textfield
-                placeholder='닉네임을 입력해 주세요.'
-                value={formData.nickname}
-                onChange={(value) => handleFieldChange('nickname', value)}
-                message={messages.nickname}
-              />
+          <Textfield
+            label='닉네임'
+            placeholder='닉네임을 입력해 주세요.'
+            value={formData.nickname}
+            onChange={(value) => handleFieldChange('nickname', value)}
+            message={messages.nickname}
+            rightElement={
               <Button
                 variant='secondary'
                 size='small'
+                disabled={!formData.nickname}
                 onClick={() => handleCheckDuplication('nickname')}>
                 중복 확인
               </Button>
-            </div>
-          </div>
+            }
+          />
 
           <Textfield
+            type='password'
             label='비밀번호'
             placeholder='비밀번호를 입력해 주세요.'
             value={formData.password}
@@ -207,6 +216,7 @@ export function SignupForm() {
           />
 
           <Textfield
+            type='password'
             label='비밀번호 확인'
             placeholder='비밀번호를 다시 입력해 주세요.'
             value={formData.confirmPassword}
@@ -221,7 +231,6 @@ export function SignupForm() {
             <label className='flex cursor-pointer items-center gap-2 text-sm'>
               <span className='text-primary/30'>동의함</span>
               <Checkbox
-                variant='primary'
                 checked={formData.agreeToTerms}
                 onChange={(checked) =>
                   handleFieldChange('agreeToTerms', checked)
@@ -238,6 +247,7 @@ export function SignupForm() {
         <Button
           type='submit'
           variant='primary'
+          disabled={!isDuplicateChecked.email || !isDuplicateChecked.nickname}
           className='font-subtitle w-full rounded-sm py-3 font-semibold'>
           회원가입
         </Button>
