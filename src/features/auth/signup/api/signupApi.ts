@@ -1,4 +1,4 @@
-import { SignupRequest, SignupResponse } from '@/entities/user';
+import {SignupRequest, SignupResponse} from '@/entities/user';
 
 export const signup = async (data: SignupRequest): Promise<SignupResponse> => {
   const response = await fetch(

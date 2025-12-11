@@ -1,1 +1,1 @@
-export { RankingPage } from './ui/RankingPage';
+export {RankingPage} from './ui/RankingPage';
