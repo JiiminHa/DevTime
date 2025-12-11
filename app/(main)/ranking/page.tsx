@@ -1,3 +1,5 @@
-export default function RankingPage() {
-  return <div>Ranking Page</div>;
+import { RankingPage } from '@/pages/ranking';
+
+export default function RankingRoute() {
+  return <RankingPage />;
 }
