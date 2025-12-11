@@ -5,15 +5,15 @@ import Link from 'next/link';
 import {Button} from '@/shared/ui/button';
 import {Checkbox} from '@/shared/ui/checkbox';
 import {Textfield} from '@/shared/ui/text-field';
-import {TermsPanel} from '@/features/terms';
-import {checkEmail, checkNickname} from '@/features/auth/check-duplicate';
+import {TermsPanel} from './TermsPanel';
+import {checkEmail, checkNickname} from '../api/checkDuplicateApi';
 import {
-  signup,
   validateEmail,
   validateNickname,
   validatePassword,
   validateConfirmPassword,
-} from '@/features/auth/signup';
+} from '../model/validation';
+import {signup} from '../api/signupApi';
 
 export function SignupForm() {
   const [formData, setFormData] = useState({

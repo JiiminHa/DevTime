@@ -1,4 +1,4 @@
-import {SignupForm} from '@/widgets/signup-form';
+import {SignupForm} from './SignupForm';
 
 export function SignupPage() {
   return <SignupForm />;
