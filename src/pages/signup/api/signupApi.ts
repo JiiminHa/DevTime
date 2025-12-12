@@ -1,4 +1,4 @@
-import {SignupRequest, SignupResponse} from '@/entities/user';
+import {SignupRequest, SignupResponse} from '../model/types';
 
 export const signup = async (data: SignupRequest): Promise<SignupResponse> => {
   const response = await fetch(
