@@ -12,7 +12,8 @@ import {
   validateNickname,
   validatePassword,
   validateConfirmPassword,
-} from '../model/validation';
+} from '@/shared/lib/validation';
+import {validateAllFields, hasValidationError} from '../model/formHelpers';
 import {signup} from '../api/signupApi';
 
 export function SignupForm() {
@@ -116,30 +117,11 @@ export function SignupForm() {
     e.preventDefault();
 
     // 1. 검증
-    const newMessages = {
-      email: validateEmail(formData.email),
-      nickname: validateNickname(formData.nickname),
-      password: validatePassword(formData.password),
-      confirmPassword: validateConfirmPassword(
-        formData.confirmPassword,
-        formData.password
-      ),
-      terms: formData.agreeToTerms
-        ? {text: '', type: 'success' as const}
-        : {text: '약관에 동의해 주세요', type: 'error' as const},
-    };
-
+    const newMessages = validateAllFields(formData);
     setMessages(newMessages);
 
     // 2. 에러 체크
-    const hasError =
-      newMessages.email.text ||
-      newMessages.nickname.text ||
-      newMessages.password.text ||
-      newMessages.confirmPassword.text ||
-      newMessages.terms.text;
-
-    if (hasError) {
+    if (hasValidationError(newMessages)) {
       return; // 에러 있으면 중단
     }
 
