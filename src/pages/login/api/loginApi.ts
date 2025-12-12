@@ -1,8 +1,8 @@
-import {SignupRequest, SignupResponse} from '../model/types';
+import {LoginRequest, LoginResponse} from '../model/types';
 
-export const signup = async (data: SignupRequest): Promise<SignupResponse> => {
+export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
     {
       method: 'POST',
       headers: {

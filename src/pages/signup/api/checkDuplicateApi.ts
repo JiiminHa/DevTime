@@ -1,4 +1,4 @@
-import {CheckDuplicateResponse} from '@/entities/user';
+import {CheckDuplicateResponse} from '../model/types';
 
 export const checkEmail = async (
   email: string

@@ -8,6 +8,11 @@ export {
   validatePassword,
   validateConfirmPassword,
   type ValidationResult,
-} from './model/validation';
+} from '@/shared/lib/validation';
 export {TermsPanel} from './ui/TermsPanel';
 export {TERMS_SECTIONS, type TermsSection} from './model/constants';
+export type {
+  CheckDuplicateResponse,
+  SignupRequest,
+  SignupResponse,
+} from '@/pages/signup/model/types';
