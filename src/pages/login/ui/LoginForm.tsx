@@ -6,8 +6,14 @@ import {Button} from '@/shared/ui/button';
 import {validateEmail, validatePassword} from '@/shared/lib/validation';
 import {validateAllFields, hasValidationError} from '../model/formHelpers';
 import {login} from '../api/loginApi';
+import {useRouter} from 'next/navigation';
 
-export function LoginForm() {
+interface LoginFormProps {
+  onLoginFail: () => void;
+  onDuplicateLogin: () => void;
+}
+
+export function LoginForm({onLoginFail, onDuplicateLogin}: LoginFormProps) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -29,7 +35,7 @@ export function LoginForm() {
       [name]: result,
     });
   };
-
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -47,11 +53,16 @@ export function LoginForm() {
       });
 
       if (result.success) {
-        alert('로그인 성공!');
-        localStorage.setItem('accessToken', result.accessToken);
-        localStorage.setItem('refreshToken', result.refreshToken);
+        if (result.isDuplicateLogin) {
+          onDuplicateLogin();
+        } else {
+          alert('로그인 성공!');
+          localStorage.setItem('accessToken', result.accessToken);
+          localStorage.setItem('refreshToken', result.refreshToken);
+          router.push('/');
+        }
       } else {
-        alert(`로그인 실패: ${result.message}`);
+        onLoginFail();
       }
     } catch (error) {
       alert('로그인 중 오류가 발생했습니다.');
@@ -79,7 +90,6 @@ export function LoginForm() {
           message={messages.password}
         />
       </div>
-
       <Button
         type='submit'
         variant='primary'
