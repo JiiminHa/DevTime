@@ -1,3 +1,5 @@
-export default function ProfilePage() {
-  return <div>Profile Page</div>;
+import {ProfilePage} from '@/pages/profile';
+
+export default function ProfileRoute() {
+  return <ProfilePage />;
 }

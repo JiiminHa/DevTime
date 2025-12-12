@@ -1,3 +1,5 @@
-export default function MyPage() {
-  return <div>My Page</div>;
+import {MyPage} from '@/pages/mypage';
+
+export default function MyPageRoute() {
+  return <MyPage />;
 }

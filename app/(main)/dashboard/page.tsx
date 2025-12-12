@@ -1,3 +1,5 @@
-export default function DashboardPage() {
-  return <div>Dashboard Page</div>;
+import {DashboardPage} from '@/pages/dashboard';
+
+export default function DashboardRoute() {
+  return <DashboardPage />;
 }

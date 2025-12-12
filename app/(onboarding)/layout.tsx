@@ -1,5 +1,5 @@
 import type {ReactNode} from 'react';
-import Logo from '@/assets/LogoVerticalWhite.svg';
+import Logo from '@/shared/assets/LogoVerticalWhite.svg';
 
 export default function OnboardingLayout({children}: {children: ReactNode}) {
   return (
