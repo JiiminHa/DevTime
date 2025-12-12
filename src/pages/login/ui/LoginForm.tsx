@@ -5,6 +5,7 @@ import {Textfield} from '@/shared/ui/text-field';
 import {Button} from '@/shared/ui/button';
 import {validateEmail, validatePassword} from '@/shared/lib/validation';
 import {validateAllFields, hasValidationError} from '../model/formHelpers';
+import {login} from '../api/loginApi';
 
 export function LoginForm() {
   const [formData, setFormData] = useState({
@@ -39,8 +40,22 @@ export function LoginForm() {
       return;
     }
 
-    // TODO: 로그인 API 호출
-    console.log('로그인 시도:', formData);
+    try {
+      const result = await login({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (result.success) {
+        alert('로그인 성공!');
+        localStorage.setItem('accessToken', result.accessToken);
+        localStorage.setItem('refreshToken', result.refreshToken);
+      } else {
+        alert(`로그인 실패: ${result.message}`);
+      }
+    } catch (error) {
+      alert('로그인 중 오류가 발생했습니다.');
+    }
   };
 
   return (
