@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import SymbolLogo from '@/shared/assets/SymbolLogo.svg';
-import LogoVertical from '@/shared/assets/LogoVertical.svg';
+import SymbolLogo from '@/shared/assets/symbol-logo.svg';
+import LogoVertical from '@/shared/assets/logo-vertical.svg';
 import {LoginForm} from './LoginForm';
 import {useState} from 'react';
 import {Modal} from '@/shared/ui/modal/Modal';
