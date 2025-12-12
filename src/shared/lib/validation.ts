@@ -4,7 +4,7 @@ export type ValidationResult = {
 };
 
 export const validateEmail = (value: string): ValidationResult => {
-  if (!value) return {text: '이메일 형식으로 작성해 주세요', type: 'error'};
+  if (!value) return {text: '이메일을 작성해 주세요', type: 'error'};
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(value))
     return {text: '이메일 형식으로 작성해 주세요', type: 'error'};
