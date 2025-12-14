@@ -8,7 +8,7 @@ export {
   validatePassword,
   validateConfirmPassword,
   type ValidationResult,
-} from '@/shared/lib/validation';
+} from '@/src/shared/form/validation';
 export {TermsPanel} from './ui/TermsPanel';
 export {TERMS_SECTIONS, type TermsSection} from './model/constants';
 export type {

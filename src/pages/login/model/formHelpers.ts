@@ -2,7 +2,7 @@ import {
   validateEmail,
   validatePassword,
   ValidationResult,
-} from '@/shared/lib/validation';
+} from '@/src/shared/form/validation';
 
 export interface LoginFormData {
   email: string;
