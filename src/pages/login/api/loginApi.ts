@@ -1,15 +1,18 @@
+import {apiClient} from '@/src/shared/api/client';
 import {LoginRequest, LoginResponse} from '../model/types';
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+  const response = await apiClient<LoginResponse, LoginRequest>(
+    '/api/auth/login',
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+      body: data,
     }
   );
-  return response.json();
+
+  if (response.accessToken) {
+    localStorage.setItem('authToken', response.accessToken);
+  }
+
+  return response;
 };
