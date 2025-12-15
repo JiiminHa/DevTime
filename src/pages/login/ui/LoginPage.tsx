@@ -37,6 +37,7 @@ export function LoginPage() {
             '다른 기기에 중복 로그인 된 상태입니다. [확인] 버튼을 누르면 다른 기기에서 강제 로그아웃되며, 진행중이던 타이머가 있다면 기록이 자동 삭제됩니다.'
           }
           onClose={() => setShowDuplicationModal(false)}
+          confirmText='확인'
         />
       )}
     </div>

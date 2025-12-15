@@ -4,8 +4,11 @@ import {Button} from '@/shared/ui/button';
 import {Textfield} from '@/shared/ui/text-field';
 import {Dropdown} from '@/src/shared/ui/dropdown';
 import {AutoComplete} from '@/src/shared/ui/auto-complete';
-import Link from 'next/link';
+import {useRouter} from 'next/navigation';
 import {useForm} from '@/src/shared/form';
+import {AddImage} from '@/src/shared/ui/add-image';
+import {Modal} from '@/shared/ui/modal/Modal';
+import {useState} from 'react';
 
 export function ProfileForm() {
   const {formData, handleFieldChange, setFormData} = useForm({
@@ -16,10 +19,16 @@ export function ProfileForm() {
     techStacks: [] as string[],
     profileImage: '',
   });
+  const router = useRouter();
+  const [showPassModal, setShowPassModal] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // 폼 제출 로직 구현
+  };
+
+  const handleSkip = () => {
+    router.push('/'); // 건너뛰기 클릭 시 이동할 경로
   };
 
   return (
@@ -85,6 +94,8 @@ export function ProfileForm() {
             value={formData.techStacks}
             onChange={(value) => setFormData({...formData, techStacks: value})}
           />
+
+          <AddImage />
         </fieldset>
 
         <Button
@@ -99,10 +110,25 @@ export function ProfileForm() {
         <span className='font-body text-primary font-regular'>
           다음에 하시겠어요?
         </span>
-        <Link href='/' className='text-primary font-bold'>
+        <button
+          type='button'
+          onClick={() => setShowPassModal(true)}
+          className='text-primary font-bold'>
           건너뛰기
-        </Link>
+        </button>
       </footer>
+      {showPassModal && (
+        <Modal
+          title={'프로필 설정을 건너뛸까요?'}
+          body={
+            '프로필을 설정하지 않을 경우 일부 기능 사용에 제한이 생길 수 있습니다. 그래도 프로필 설정을 건너뛰시겠습니까? '
+          }
+          confirmText='계속 설정하기'
+          onClose={() => setShowPassModal(false)}
+          cancelText='건너뛰기'
+          onCancel={handleSkip}
+        />
+      )}
     </section>
   );
 }
