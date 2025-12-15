@@ -133,7 +133,7 @@ export function AutoComplete({
           {value.map((item) => (
             <div
               key={item}
-              className='bg-primary-light font-label border-primary text-primary flex items-center gap-2 rounded-[5px] border p-3 text-sm'>
+              className='bg-primary/10 font-label border-primary text-primary flex items-center gap-2 rounded-[5px] border p-3 text-sm'>
               <span>{item}</span>
               <button
                 type='button'
