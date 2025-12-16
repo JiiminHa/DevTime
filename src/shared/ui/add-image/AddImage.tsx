@@ -28,6 +28,12 @@ export function AddImage({value, onChange}: AddImageProps) {
       setError(
         '지원하지 않는 파일 형식입니다. PNG 또는 JPG 파일을 선택해주세요.'
       );
+      onChange(null);
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+        setPreviewUrl(null);
+      }
+      e.target.value = '';
       return;
     }
 
@@ -35,6 +41,12 @@ export function AddImage({value, onChange}: AddImageProps) {
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
       setError('파일 크기가 5MB를 초과합니다.');
+      onChange(null);
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+        setPreviewUrl(null);
+      }
+      e.target.value = '';
       return;
     }
 

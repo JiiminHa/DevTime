@@ -7,7 +7,7 @@ type FetchOptions<TBody> = {
 export const apiClient = async <TResponse, TBody = never>(
   endpoint: string,
   options: FetchOptions<TBody> = {}
-): Promise<TResponse> => {
+): Promise<TResponse | null> => {
   const token =
     typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
