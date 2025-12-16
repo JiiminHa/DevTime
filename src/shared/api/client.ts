@@ -35,7 +35,7 @@ export const apiClient = async <TResponse, TBody = never>(
   if (!response.ok) {
     type ErrorPayload = {
       message?: string;
-      error?: string | { message?: string };
+      error?: string | {message?: string};
     };
     let errorData: ErrorPayload;
     try {

@@ -85,17 +85,24 @@ export function ProfileForm() {
       router.push('/'); // 제출 후 메인화면으로 이동
     } catch (error) {
       // "이미 프로필이 존재합니다" 에러인 경우 PUT으로 업데이트 시도
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
       console.log('POST 실패, 에러 메시지:', errorMessage);
-      
-      if (errorMessage.includes('이미 프로필이 존재합니다') || errorMessage.includes('프로필이 존재합니다')) {
+
+      if (
+        errorMessage.includes('이미 프로필이 존재합니다') ||
+        errorMessage.includes('프로필이 존재합니다')
+      ) {
         console.log('프로필이 이미 존재하므로 PUT으로 업데이트 시도');
         try {
           await updateProfile(payload);
           console.log('프로필 업데이트 성공');
           router.push('/'); // 업데이트 후 메인화면으로 이동
         } catch (updateError) {
-          const updateErrorMessage = updateError instanceof Error ? updateError.message : String(updateError);
+          const updateErrorMessage =
+            updateError instanceof Error
+              ? updateError.message
+              : String(updateError);
           console.error('프로필 업데이트 실패:', updateError);
           console.error('업데이트 에러 메시지:', updateErrorMessage);
           alert(`프로필 업데이트에 실패했습니다: ${updateErrorMessage}`);
@@ -122,12 +129,16 @@ export function ProfileForm() {
             placeholder='개발 경력을 선택해 주세요.'
             value={formData.career}
             onChange={(value) => handleFieldChange('career', value)}
-            options={['경력 없음', '0 - 3년', '4 - 7년', '8 - 10년', '11년 이상'].map(
-              (career) => ({
-                label: career,
-                value: career,
-              })
-            )}
+            options={[
+              '경력 없음',
+              '0 - 3년',
+              '4 - 7년',
+              '8 - 10년',
+              '11년 이상',
+            ].map((career) => ({
+              label: career,
+              value: career,
+            }))}
           />
 
           <Dropdown
