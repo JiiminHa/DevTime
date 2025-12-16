@@ -2,13 +2,16 @@
 
 import {Button} from '@/shared/ui/button';
 import {Textfield} from '@/shared/ui/text-field';
-import {Dropdown} from '@/src/shared/ui/dropdown';
-import {AutoComplete} from '@/src/shared/ui/auto-complete';
+import {Dropdown} from '@/shared/ui/dropdown';
+import {AutoComplete} from '@/shared/ui/auto-complete';
 import {useRouter} from 'next/navigation';
-import {useForm} from '@/src/shared/form';
-import {AddImage} from '@/src/shared/ui/add-image';
+import {useForm} from '@/shared/form';
+import {AddImage} from '@/shared/ui/add-image';
 import {Modal} from '@/shared/ui/modal/Modal';
 import {useState} from 'react';
+import {getPresignedUrl} from '../api/presignedUrlApi';
+import {submitProfile, updateProfile} from '../api/profileApi';
+import type {Purpose} from '../model/types';
 
 export function ProfileForm() {
   const {formData, handleFieldChange, setFormData} = useForm({
@@ -17,18 +20,91 @@ export function ProfileForm() {
     customPurpose: '',
     goal: '',
     techStacks: [] as string[],
-    profileImage: '',
   });
   const router = useRouter();
-  const [showPassModal, setShowPassModal] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // 폼 제출 로직 구현
-  };
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [showPassModal, setShowPassModal] = useState(false);
 
   const handleSkip = () => {
     router.push('/'); // 건너뛰기 클릭 시 이동할 경로
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // 1. 이미지가 선택되었다면 업로드
+    let imageKey = '';
+    if (profileImage) {
+      try {
+        const {presignedUrl, key} = await getPresignedUrl(profileImage);
+
+        // 2. presignedUrl로 실제 파일 업로드
+        await fetch(presignedUrl, {
+          method: 'PUT',
+          body: profileImage,
+          headers: {
+            'Content-Type': profileImage.type,
+          },
+        });
+
+        imageKey = key;
+      } catch (error) {
+        console.error('이미지 업로드 실패:', error);
+        alert('이미지 업로드에 실패했습니다. 다시 시도해주세요.');
+        return;
+      }
+    }
+
+    // 2. purpose를 API 스펙에 맞게 변환
+    let purpose: Purpose = '';
+    if (formData.purpose === '기타(직접 입력)') {
+      purpose = {
+        type: '기타',
+        ...(formData.customPurpose.trim() && {detail: formData.customPurpose}),
+      };
+    } else if (formData.purpose) {
+      purpose = formData.purpose as Purpose;
+    }
+
+    // 3. 프로필 생성 API 호출
+    const payload = {
+      career: formData.career || '',
+      purpose: purpose,
+      goal: formData.goal || '',
+      techStacks: formData.techStacks || [],
+      profileImage: imageKey || '',
+    };
+
+    console.log('제출할 payload:', JSON.stringify(payload, null, 2));
+
+    try {
+      // 먼저 POST로 생성 시도
+      await submitProfile(payload);
+      console.log('프로필 생성 성공');
+      router.push('/'); // 제출 후 메인화면으로 이동
+    } catch (error) {
+      // "이미 프로필이 존재합니다" 에러인 경우 PUT으로 업데이트 시도
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.log('POST 실패, 에러 메시지:', errorMessage);
+      
+      if (errorMessage.includes('이미 프로필이 존재합니다') || errorMessage.includes('프로필이 존재합니다')) {
+        console.log('프로필이 이미 존재하므로 PUT으로 업데이트 시도');
+        try {
+          await updateProfile(payload);
+          console.log('프로필 업데이트 성공');
+          router.push('/'); // 업데이트 후 메인화면으로 이동
+        } catch (updateError) {
+          const updateErrorMessage = updateError instanceof Error ? updateError.message : String(updateError);
+          console.error('프로필 업데이트 실패:', updateError);
+          console.error('업데이트 에러 메시지:', updateErrorMessage);
+          alert(`프로필 업데이트에 실패했습니다: ${updateErrorMessage}`);
+        }
+      } else {
+        console.error('프로필 제출 실패:', error);
+        alert(`프로필 설정에 실패했습니다: ${errorMessage}`);
+      }
+    }
   };
 
   return (
@@ -46,7 +122,7 @@ export function ProfileForm() {
             placeholder='개발 경력을 선택해 주세요.'
             value={formData.career}
             onChange={(value) => handleFieldChange('career', value)}
-            options={['경력 없음', '0-3년', '4-7년', '8-10년', '11년 이상'].map(
+            options={['경력 없음', '0 - 3년', '4 - 7년', '8 - 10년', '11년 이상'].map(
               (career) => ({
                 label: career,
                 value: career,
@@ -95,7 +171,7 @@ export function ProfileForm() {
             onChange={(value) => setFormData({...formData, techStacks: value})}
           />
 
-          <AddImage />
+          <AddImage value={profileImage} onChange={setProfileImage} />
         </fieldset>
 
         <Button
