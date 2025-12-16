@@ -2,9 +2,7 @@
 
 import {useState} from 'react';
 import Link from 'next/link';
-import {Button} from '@/shared/ui/button';
-import {Checkbox} from '@/shared/ui/checkbox';
-import {Textfield} from '@/shared/ui/text-field';
+import {Button, Checkbox, Textfield} from '@/shared/ui';
 import {TermsPanel} from './TermsPanel';
 import {checkEmail, checkNickname} from '../api/checkDuplicateApi';
 import {
@@ -12,10 +10,10 @@ import {
   validateNickname,
   validatePassword,
   validateConfirmPassword,
-} from '@/src/shared/form/validation';
+  useForm,
+} from '@/shared/form';
 import {validateAllFields, hasValidationError} from '../model/formHelpers';
 import {signup} from '../api/signupApi';
-import {useForm} from '@/src/shared/form';
 
 export function SignupForm() {
   const {formData, setFormData} = useForm({

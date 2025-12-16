@@ -1,16 +1,17 @@
 'use client';
 
-import {Button} from '@/shared/ui/button';
-import {Textfield} from '@/shared/ui/text-field';
-import {Dropdown} from '@/shared/ui/dropdown';
-import {AutoComplete} from '@/shared/ui/auto-complete';
+import {
+  Button,
+  Textfield,
+  Dropdown,
+  AutoComplete,
+  AddImage,
+  Modal,
+} from '@/shared/ui';
 import {useRouter} from 'next/navigation';
 import {useForm} from '@/shared/form';
-import {AddImage} from '@/shared/ui/add-image';
-import {Modal} from '@/shared/ui/modal/Modal';
 import {useState} from 'react';
-import {getPresignedUrl} from '../api/presignedUrlApi';
-import {submitProfile, updateProfile} from '../api/profileApi';
+import {getPresignedUrl, submitProfile, updateProfile} from '../api';
 import type {Purpose} from '../model/types';
 
 export function ProfileForm() {

@@ -4,7 +4,7 @@ import {
   validatePassword,
   validateConfirmPassword,
   type ValidationResult,
-} from '@/src/shared/form/validation';
+} from '@/shared/form';
 
 export interface SignupFormData {
   email: string;

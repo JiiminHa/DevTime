@@ -1,4 +1,4 @@
-import {apiClient} from '@/src/shared/api/client';
+import {apiClient} from '@/shared/api';
 import {SignupRequest, SignupResponse} from '../model/types';
 
 export const signup = async (data: SignupRequest): Promise<SignupResponse> => {

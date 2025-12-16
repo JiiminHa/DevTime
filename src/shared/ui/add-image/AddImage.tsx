@@ -1,4 +1,4 @@
-import Plus from '@/src/shared/assets/plus.svg';
+import Plus from '@/shared/assets/plus.svg';
 import {useState} from 'react';
 
 interface AddImageProps {

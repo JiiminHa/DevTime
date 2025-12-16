@@ -5,7 +5,7 @@ import SymbolLogo from '@/shared/assets/symbol-logo.svg';
 import LogoVertical from '@/shared/assets/logo-vertical.svg';
 import {LoginForm} from './LoginForm';
 import {useState} from 'react';
-import {Modal} from '@/shared/ui/modal/Modal';
+import {Modal} from '@/shared/ui';
 
 export function LoginPage() {
   const [showModal, setShowModal] = useState(false);

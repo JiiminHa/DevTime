@@ -1,4 +1,4 @@
-import {apiClient} from '@/src/shared/api/client';
+import {apiClient} from '@/shared/api';
 import {CheckDuplicateResponse} from '../model/types';
 
 export const checkEmail = async (
