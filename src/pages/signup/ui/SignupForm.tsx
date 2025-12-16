@@ -12,12 +12,13 @@ import {
   validateNickname,
   validatePassword,
   validateConfirmPassword,
-} from '@/shared/lib/validation';
+} from '@/src/shared/form/validation';
 import {validateAllFields, hasValidationError} from '../model/formHelpers';
 import {signup} from '../api/signupApi';
+import {useForm} from '@/src/shared/form';
 
 export function SignupForm() {
-  const [formData, setFormData] = useState({
+  const {formData, setFormData} = useForm({
     email: '',
     nickname: '',
     password: '',

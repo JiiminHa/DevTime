@@ -1,14 +1,12 @@
+import {apiClient} from '@/src/shared/api/client';
 import {LogoutResponse} from '../model/types';
 
-export const logout = async (accessToken: string): Promise<LogoutResponse> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
-  return response.json();
+export const logout = async (): Promise<LogoutResponse> => {
+  const response = await apiClient<LogoutResponse>('/api/auth/logout', {
+    method: 'POST',
+  });
+
+  localStorage.removeItem('authToken');
+
+  return response;
 };

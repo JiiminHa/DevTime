@@ -3,10 +3,11 @@
 import {useState} from 'react';
 import {Textfield} from '@/shared/ui/text-field';
 import {Button} from '@/shared/ui/button';
-import {validateEmail, validatePassword} from '@/shared/lib/validation';
+import {validateEmail, validatePassword} from '@/src/shared/form/validation';
 import {validateAllFields, hasValidationError} from '../model/formHelpers';
 import {login} from '../api/loginApi';
 import {useRouter} from 'next/navigation';
+import {useForm} from '@/src/shared/form';
 
 interface LoginFormProps {
   onLoginFail: () => void;
@@ -14,7 +15,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({onLoginFail, onDuplicateLogin}: LoginFormProps) {
-  const [formData, setFormData] = useState({
+  const {formData, setFormData} = useForm({
     email: '',
     password: '',
   });

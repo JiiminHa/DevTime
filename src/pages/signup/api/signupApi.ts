@@ -1,15 +1,9 @@
+import {apiClient} from '@/src/shared/api/client';
 import {SignupRequest, SignupResponse} from '../model/types';
 
 export const signup = async (data: SignupRequest): Promise<SignupResponse> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }
-  );
-  return response.json();
+  return apiClient<SignupResponse, SignupRequest>('/api/signup', {
+    method: 'POST',
+    body: data,
+  });
 };
