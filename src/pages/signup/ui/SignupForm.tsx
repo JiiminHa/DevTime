@@ -38,9 +38,9 @@ export function SignupForm() {
   });
 
   // Event Handlers
-  const handleFieldChange = (
-    name: keyof typeof formData,
-    value: string | boolean
+  const handleTextFieldChange = (
+    name: 'email' | 'nickname' | 'password' | 'confirmPassword',
+    value: string
   ) => {
     setFormData({...formData, [name]: value});
 
@@ -53,21 +53,16 @@ export function SignupForm() {
 
     switch (name) {
       case 'email':
-        result = validateEmail(value as string);
+        result = validateEmail(value);
         break;
       case 'nickname':
-        result = validateNickname(value as string);
+        result = validateNickname(value);
         break;
       case 'password':
-        result = validatePassword(value as string);
+        result = validatePassword(value);
         break;
       case 'confirmPassword':
-        result = validateConfirmPassword(value as string, formData.password);
-        break;
-      case 'agreeToTerms':
-        result = value
-          ? {text: '', type: 'success'}
-          : {text: '약관에 동의해 주세요', type: 'error'};
+        result = validateConfirmPassword(value, formData.password);
         break;
       default:
         result = {text: '', type: 'success'};
@@ -75,7 +70,17 @@ export function SignupForm() {
 
     setMessages({
       ...messages,
-      [name === 'agreeToTerms' ? 'terms' : name]: result,
+      [name]: result,
+    });
+  };
+
+  const handleCheckboxChange = (checked: boolean) => {
+    setFormData({...formData, agreeToTerms: checked});
+    setMessages({
+      ...messages,
+      terms: checked
+        ? {text: '', type: 'success'}
+        : {text: '약관에 동의해 주세요', type: 'error'},
     });
   };
 
@@ -157,7 +162,7 @@ export function SignupForm() {
             label='아이디'
             placeholder='이메일을 입력해 주세요.'
             value={formData.email}
-            onChange={(value) => handleFieldChange('email', value)}
+            onChange={(value) => handleTextFieldChange('email', value)}
             message={messages.email}
             rightElement={
               <Button
@@ -174,7 +179,7 @@ export function SignupForm() {
             label='닉네임'
             placeholder='닉네임을 입력해 주세요.'
             value={formData.nickname}
-            onChange={(value) => handleFieldChange('nickname', value)}
+            onChange={(value) => handleTextFieldChange('nickname', value)}
             message={messages.nickname}
             rightElement={
               <Button
@@ -192,7 +197,7 @@ export function SignupForm() {
             label='비밀번호'
             placeholder='비밀번호를 입력해 주세요.'
             value={formData.password}
-            onChange={(value) => handleFieldChange('password', value)}
+            onChange={(value) => handleTextFieldChange('password', value)}
             message={messages.password}
           />
 
@@ -201,7 +206,9 @@ export function SignupForm() {
             label='비밀번호 확인'
             placeholder='비밀번호를 다시 입력해 주세요.'
             value={formData.confirmPassword}
-            onChange={(value) => handleFieldChange('confirmPassword', value)}
+            onChange={(value) =>
+              handleTextFieldChange('confirmPassword', value)
+            }
             message={messages.confirmPassword}
           />
         </fieldset>
@@ -213,9 +220,7 @@ export function SignupForm() {
               <span className='text-primary/30'>동의함</span>
               <Checkbox
                 checked={formData.agreeToTerms}
-                onChange={(checked) =>
-                  handleFieldChange('agreeToTerms', checked)
-                }
+                onChange={handleCheckboxChange}
               />
             </label>
           </div>

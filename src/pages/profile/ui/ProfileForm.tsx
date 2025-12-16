@@ -41,13 +41,17 @@ export function ProfileForm() {
         const {presignedUrl, key} = await getPresignedUrl(profileImage);
 
         // 2. presignedUrl로 실제 파일 업로드
-        await fetch(presignedUrl, {
+        const uploadResponse = await fetch(presignedUrl, {
           method: 'PUT',
           body: profileImage,
           headers: {
             'Content-Type': profileImage.type,
           },
         });
+
+        if (!uploadResponse.ok) {
+          throw new Error(`이미지 업로드에 실패: ${uploadResponse.statusText}`);
+        }
 
         imageKey = key;
       } catch (error) {
@@ -180,7 +184,9 @@ export function ProfileForm() {
             label='기술 스택'
             placeholder='기술 스택을 입력해 주세요.'
             value={formData.techStacks}
-            onChange={(value) => setFormData({...formData, techStacks: value})}
+            onChange={(value) =>
+              setFormData((prev) => ({...prev, techStacks: value}))
+            }
           />
 
           <AddImage value={profileImage} onChange={setProfileImage} />

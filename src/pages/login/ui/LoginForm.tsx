@@ -56,8 +56,9 @@ export function LoginForm({onLoginFail, onDuplicateLogin}: LoginFormProps) {
           onDuplicateLogin();
         } else {
           alert('로그인 성공!');
-          localStorage.setItem('accessToken', result.accessToken);
-          localStorage.setItem('refreshToken', result.refreshToken);
+          if (result.refreshToken) {
+            localStorage.setItem('refreshToken', result.refreshToken);
+          }
           router.push('/');
         }
       } else {
