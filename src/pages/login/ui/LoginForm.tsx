@@ -1,13 +1,11 @@
 'use client';
 
 import {useState} from 'react';
-import {Textfield} from '@/shared/ui/text-field';
-import {Button} from '@/shared/ui/button';
-import {validateEmail, validatePassword} from '@/src/shared/form/validation';
+import {Textfield, Button} from '@/shared/ui';
+import {validateEmail, validatePassword, useForm} from '@/shared/form';
 import {validateAllFields, hasValidationError} from '../model/formHelpers';
 import {login} from '../api/loginApi';
 import {useRouter} from 'next/navigation';
-import {useForm} from '@/src/shared/form';
 
 interface LoginFormProps {
   onLoginFail: () => void;

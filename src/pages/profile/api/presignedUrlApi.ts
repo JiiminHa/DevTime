@@ -1,4 +1,4 @@
-import {apiClient} from '@/shared/api/client';
+import {apiClient} from '@/shared/api';
 import type {PresignedUrlRequest, PresignedUrlResponse} from '../model/types';
 
 export const getPresignedUrl = async (file: File) => {

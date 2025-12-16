@@ -1,3 +1,4 @@
+'use client';
 import {useState} from 'react';
 
 export function useForm<T>(initialValues: T) {

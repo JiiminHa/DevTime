@@ -1,8 +1,4 @@
-import {
-  validateEmail,
-  validatePassword,
-  ValidationResult,
-} from '@/src/shared/form/validation';
+import {validateEmail, validatePassword, ValidationResult} from '@/shared/form';
 
 export interface LoginFormData {
   email: string;

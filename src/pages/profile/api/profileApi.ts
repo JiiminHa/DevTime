@@ -1,4 +1,4 @@
-import {apiClient} from '@/shared/api/client';
+import {apiClient} from '@/shared/api';
 import {ProfileRequest, ProfileResponse} from '../model/types';
 
 export const submitProfile = async (
