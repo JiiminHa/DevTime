@@ -1,5 +1,5 @@
 import Plus from '@/shared/assets/plus.svg';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 interface AddImageProps {
   value: File | null;
@@ -9,6 +9,14 @@ interface AddImageProps {
 export function AddImage({value, onChange}: AddImageProps) {
   const [error, setError] = useState('');
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -33,6 +41,10 @@ export function AddImage({value, onChange}: AddImageProps) {
     // 검증 통과!
     setError('');
     onChange(file);
+
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
 
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);

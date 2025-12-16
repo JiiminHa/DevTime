@@ -32,27 +32,25 @@ export function Textfield({
           onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
             onChange?.(e.target.value),
         };
+  const inputElement = (
+    <input
+      type={type}
+      placeholder={placeholder}
+      {...inputProps}
+      className={`text-body ${rightElement ? 'flex-1' : ''} rounded-sm bg-gray-50 px-4 py-3 ${message?.type === 'error' && message?.text ? 'outline-negative outline' : ''} ${className}`}
+    />
+  );
 
   return (
     <div className='flex flex-col gap-2'>
       {label && <label className='font-label text-sm'>{label}</label>}
       {rightElement ? (
         <div className='flex items-start gap-3'>
-          <input
-            type={type}
-            placeholder={placeholder}
-            {...inputProps}
-            className={`text-body flex-1 rounded-sm bg-gray-50 px-4 py-3 ${message?.type === 'error' && message?.text ? 'outline-negative outline' : ''} ${className}`}
-          />
+          {inputElement}
           {rightElement}
         </div>
       ) : (
-        <input
-          type={type}
-          placeholder={placeholder}
-          {...inputProps}
-          className={`text-body rounded-sm bg-gray-50 px-4 py-3 ${message?.type === 'error' && message?.text ? 'outline-negative outline' : ''} ${className}`}
-        />
+        inputElement
       )}
       {message && (
         <p
