@@ -1,3 +1,5 @@
-export default function LoginPage() {
-  return <div>Login Page</div>;
+import {LoginPage} from '@/pages/login';
+
+export default function LoginRoute() {
+  return <LoginPage />;
 }
