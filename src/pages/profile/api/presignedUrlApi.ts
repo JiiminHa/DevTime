@@ -1,7 +1,9 @@
 import {apiClient} from '@/shared/api';
 import type {PresignedUrlRequest, PresignedUrlResponse} from '../model/types';
 
-export const getPresignedUrl = async (file: File) => {
+export const getPresignedUrl = async (
+  file: File
+): Promise<PresignedUrlResponse> => {
   const response = await apiClient<PresignedUrlResponse, PresignedUrlRequest>(
     '/api/file/presigned-url',
     {
