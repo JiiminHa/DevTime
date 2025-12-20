@@ -4,7 +4,6 @@ import {useState} from 'react';
 import {Textfield, Button} from '@/shared/ui';
 import {validateEmail, validatePassword, useForm} from '@/shared/form';
 import {validateAllFields, hasValidationError} from '../model/formHelpers';
-import {login} from '../api/loginApi';
 import {useRouter} from 'next/navigation';
 
 interface LoginFormProps {
@@ -34,7 +33,9 @@ export function LoginForm({onLoginFail, onDuplicateLogin}: LoginFormProps) {
       [name]: result,
     });
   };
+
   const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -46,19 +47,22 @@ export function LoginForm({onLoginFail, onDuplicateLogin}: LoginFormProps) {
     }
 
     try {
-      const result = await login({
-        email: formData.email,
-        password: formData.password,
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
       });
+
+      const result = await response.json();
 
       if (result.success) {
         if (result.isDuplicateLogin) {
           onDuplicateLogin();
         } else {
           alert('로그인 성공!');
-          if (result.refreshToken) {
-            localStorage.setItem('refreshToken', result.refreshToken);
-          }
           router.push('/');
         }
       } else {
