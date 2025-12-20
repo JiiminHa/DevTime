@@ -29,15 +29,11 @@ export const Checkbox = ({
       {/* 보이는 SVG */}
       {checked ? (
         <CheckedIcon
-          className={error ? 'stroke-negative' : ''}
-          peer-focus-visible:ring-1
-          peer-focus-visible:ring-primary
+          className={`${error ? 'stroke-negative' : ''} peer-focus-visible:ring-primary peer-focus-visible:ring-1`}
         />
       ) : (
         <UncheckedIcon
-          className={error ? 'stroke-negative' : ''}
-          peer-focus-visible:ring-1
-          peer-focus-visible:ring-primary
+          className={`${error ? 'stroke-negative' : ''} peer-focus-visible:ring-primary peer-focus-visible:ring-1`}
         />
       )}
     </label>
