@@ -5,6 +5,7 @@ import {Textfield, Button} from '@/shared/ui';
 import {validateEmail, validatePassword, useForm} from '@/shared/form';
 import {validateAllFields, hasValidationError} from '../model/formHelpers';
 import {useRouter} from 'next/navigation';
+import {login} from '../api';
 
 interface LoginFormProps {
   onLoginFail: () => void;
@@ -47,16 +48,10 @@ export function LoginForm({onLoginFail, onDuplicateLogin}: LoginFormProps) {
     }
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
+      const result = await login({
+        email: formData.email,
+        password: formData.password,
       });
-
-      const result = await response.json();
 
       if (result.success) {
         if (result.isDuplicateLogin) {
