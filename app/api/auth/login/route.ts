@@ -13,8 +13,11 @@ export async function POST(request: Request) {
       const errorData = await response.json();
 
       return Response.json(
-        {success: false, message: errorData.message || '로그인 실패'},
-        {status: 401}
+        {
+          success: false,
+          message: errorData.error?.message || '로그인 실패',
+        },
+        {status: errorData.error?.statusCode || 500}
       );
     }
 
@@ -35,6 +38,8 @@ export async function POST(request: Request) {
 
     return Response.json({
       success: true,
+      message: data.message,
+      isFirstLogin: data.isFirstLogin,
       isDuplicateLogin: data.isDuplicateLogin,
     });
   } catch (error) {
