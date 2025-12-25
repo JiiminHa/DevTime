@@ -46,9 +46,6 @@ export async function POST() {
     });
   } catch (error) {
     console.error('토큰 갱신 에러:', error);
-    return Response.json(
-      {success: false, message: '서버 오류'},
-      {status: 500}
-    );
+    return Response.json({success: false, message: '서버 오류'}, {status: 500});
   }
 }
