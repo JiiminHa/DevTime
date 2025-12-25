@@ -37,7 +37,6 @@ export function SignupForm() {
     nickname: false,
   });
 
-  // Event Handlers
   const handleTextFieldChange = (
     name: 'email' | 'nickname' | 'password' | 'confirmPassword',
     value: string
