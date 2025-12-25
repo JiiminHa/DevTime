@@ -3,25 +3,34 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface LoginResponse {
-  success: boolean;
-  message: string;
-  accessToken: string;
-  refreshToken: string;
-  isFirstLogin: boolean;
-  isDuplicateLogin: boolean;
-}
+export type LoginResponse =
+  | {
+      success: true;
+      message: string;
+      isFirstLogin: boolean;
+      isDuplicateLogin: boolean;
+    }
+  | {
+      success: false;
+      message: string;
+    };
 
-export interface LogoutResponse {
-  success: boolean;
-  message: string;
-}
+export type LogoutResponse =
+  | {
+      success: true;
+      message: string;
+    }
+  | {
+      success: false;
+      message: string;
+    };
 
-export interface RefreshTokenRequest {
-  refreshToken: string;
-}
-
-export interface RefreshTokenResponse {
-  success: boolean;
-  accessToken: string;
-}
+export type RefreshTokenResponse =
+  | {
+      success: true;
+      accessToken: string;
+    }
+  | {
+      success: false;
+      message: string;
+    };
