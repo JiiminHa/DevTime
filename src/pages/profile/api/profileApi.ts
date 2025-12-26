@@ -1,5 +1,9 @@
 import {apiClient} from '@/shared/api';
-import {ProfileRequest, ProfileResponse} from '../model/types';
+import {
+  ProfileRequest,
+  ProfileResponse,
+  ProfileGetResponse,
+} from '../model/types';
 
 export const submitProfile = async (
   data: ProfileRequest
@@ -16,5 +20,11 @@ export const updateProfile = async (
   return apiClient<ProfileResponse, ProfileRequest>('/api/profile', {
     method: 'PUT',
     body: data,
+  });
+};
+
+export const getProfile = async (): Promise<ProfileGetResponse> => {
+  return apiClient<ProfileGetResponse>('/api/profile', {
+    method: 'GET',
   });
 };
