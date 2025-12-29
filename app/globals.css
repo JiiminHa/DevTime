@@ -60,3 +60,8 @@
   --font-caption: 0.75rem;
   --font-label: 0.625rem;
 }
+@layer base {
+  body {
+    height: 100vh;
+  }
+}

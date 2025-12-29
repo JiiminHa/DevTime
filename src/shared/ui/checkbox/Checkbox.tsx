@@ -5,12 +5,15 @@ interface CheckboxProps {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   error?: boolean;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
 }
 
 export const Checkbox = ({
   checked = false,
   onChange,
   error = false,
+  ...aria
 }: CheckboxProps) => {
   return (
     <label className='cursor-pointer'>
@@ -19,14 +22,19 @@ export const Checkbox = ({
         type='checkbox'
         checked={checked}
         onChange={(e) => onChange?.(e.target.checked)}
-        className='sr-only'
+        className='peer sr-only'
+        {...aria}
       />
 
       {/* 보이는 SVG */}
       {checked ? (
-        <CheckedIcon className={error ? 'stroke-negative' : ''} />
+        <CheckedIcon
+          className={`${error ? 'stroke-negative' : ''} peer-focus-visible:ring-primary peer-focus-visible:ring-1`}
+        />
       ) : (
-        <UncheckedIcon className={error ? 'stroke-negative' : ''} />
+        <UncheckedIcon
+          className={`${error ? 'stroke-negative' : ''} peer-focus-visible:ring-primary peer-focus-visible:ring-1`}
+        />
       )}
     </label>
   );

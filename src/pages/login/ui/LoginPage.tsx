@@ -28,6 +28,7 @@ export function LoginPage() {
         <Modal
           body={'로그인 정보를 다시 확인해 주세요'}
           onClose={() => setShowModal(false)}
+          confirmText='확인'
         />
       )}
       {showDuplicationModal && (
