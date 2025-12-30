@@ -5,7 +5,7 @@ export const getPresignedUrl = async (
   file: File
 ): Promise<PresignedUrlResponse> => {
   const response = await apiClient<PresignedUrlResponse, PresignedUrlRequest>(
-    '/api/file/presigned-url',
+    `/api/file/presigned-url`,
     {
       method: 'POST',
       body: {

@@ -5,7 +5,7 @@ export const checkEmail = async (
   email: string
 ): Promise<CheckDuplicateResponse> => {
   return apiClient<CheckDuplicateResponse>(
-    `/api/signup/check-email?email=${encodeURIComponent(email)}`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/signup/check-email?email=${encodeURIComponent(email)}`
   );
 };
 
@@ -13,6 +13,6 @@ export const checkNickname = async (
   nickname: string
 ): Promise<CheckDuplicateResponse> => {
   return apiClient<CheckDuplicateResponse>(
-    `/api/signup/check-nickname?nickname=${encodeURIComponent(nickname)}`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/signup/check-nickname?nickname=${encodeURIComponent(nickname)}`
   );
 };
